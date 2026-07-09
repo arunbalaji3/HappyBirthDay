@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Surprise 💗</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    background:#ffd6e7;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    text-align:center;
+    background:#ffe8f1;
+    padding:40px;
+    border-radius:30px;
+    box-shadow:0 10px 30px rgba(255,105,180,0.2);
+    width:90%;
+    max-width:600px;
+}
+
+h1{
+    color:#ff4f9a;
+    margin-bottom:20px;
+    font-size:2.5rem;
+}
+
+.subtitle{
+    color:#d85d9b;
+    margin-bottom:30px;
+}
+
+#timer{
+    font-size:2.8rem;
+    font-weight:bold;
+    color:#ff1493;
+    margin-bottom:30px;
+}
+
+#unlockBtn{
+    padding:15px 35px;
+    font-size:18px;
+    border:none;
+    border-radius:50px;
+    background:#ff69b4;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#unlockBtn:hover:not(:disabled){
+    background:#ff1493;
+    transform:scale(1.05);
+}
+
+#unlockBtn:disabled{
+    background:#f4a6c8;
+    cursor:not-allowed;
+    opacity:0.8;
+}
+
+.hearts{
+    font-size:1.8rem;
+    margin-bottom:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="hearts">💗 💖 💗</div>
+
+    <h1>Countdown For Surprise</h1>
+
+    <p class="subtitle">
+        Waiting for July 10, 2026 • 12:00 AM IST
+    </p>
+
+    <div id="timer">Loading...</div>
+
+    <button id="unlockBtn" disabled>
+        🔒 Locked Until Countdown Ends
+    </button>
+
+</div>
+
+<script>
+
+const targetDate = new Date("2026-07-10T00:00:00+05:30").getTime();
+
+const timer = document.getElementById("timer");
+const button = document.getElementById("unlockBtn");
+
+function updateCountdown(){
+
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if(distance <= 0){
+
+        timer.innerHTML = "🎉 Gift is Ready!";
+
+        button.disabled = false;
+        button.innerHTML = "💖 Continue";
+
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24))
+                 / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60))
+                   / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60))
+                   / 1000);
+
+    timer.innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+button.addEventListener("click", () => {
+    window.location.href = "Introduction.html";
+});
+
+</script>
+
+</body>
+</html>

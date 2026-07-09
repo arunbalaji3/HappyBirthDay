@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Wish 💖</title>
+
+<style>
+body{
+    background:#ffd6e7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:'Segoe UI',sans-serif;
+}
+
+.container{
+    background:#ffe8f1;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(255,105,180,0.2);
+    width:450px;
+}
+
+h1{
+    color:#ff1493;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:2px solid #ffb6c1;
+    border-radius:15px;
+    margin-bottom:20px;
+    font-size:16px;
+}
+
+button{
+    background:#ff69b4;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#ff1493;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💖 Make A Wish 💖</h1>
+
+    <p>Tell me one wish I can do for you ✨</p>
+
+    <input type="text" id="wish" placeholder="Type your wish here...">
+
+    <button onclick="saveWish()">Submit 💕</button>
+</div>
+
+<script>
+function saveWish() {
+
+   const wish = document.getElementById("wish").value.trim();
+
+if (!wish) {
+    alert("Please enter a wish 💖");
+    return;
+}
+console.log(wish);
+fetch("https://f8ac-2406-7400-c2-d846-c4fd-75da-d64a-af44.ngrok-free.app/api/wish", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        wish: wish
+    })
+})
+.then(response => {
+   
+    return response.text(); // or response.text() if your API returns text
+})
+.then(data => {
+    alert("Your Wish was heard 💕");
+    console.log(data);
+})
+.catch(error => {
+    console.error(error);
+    alert("Failed to send your wish 😢");
+});
+}
+</script>
+
+</body>
+</html>
